@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function NavBar(props) {
 
@@ -19,13 +19,14 @@ function NavBar(props) {
                         <li>
                             <Link className='link' to={'/'} >About</Link>
                         </li>
-
+                        <li>
+                            <div className="form-check form-switch mt-1 me-5">
+                                <input className="form-check-input" onClick={props.toggleMode} type="checkbox" role="switch"
+                                    id="flexSwitchCheckDefault" />
+                                <label className="form-check-label" style={props.mode} htmlFor="flexSwitchCheckDefault">Dark Mode</label>
+                            </div>
+                        </li>
                     </ul>
-                    <div className="form-check form-switch me-5">
-                        <input className="form-check-input" onClick={props.toggleMode} type="checkbox" role="switch"
-                            id="flexSwitchCheckDefault" />
-                        <label className="form-check-label" style={props.mode} htmlFor="flexSwitchCheckDefault">Dark Mode</label>
-                    </div>
                 </nav>
             </div>
 

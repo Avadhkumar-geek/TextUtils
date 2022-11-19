@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from "react";
-import { Outlet } from 'react-router-dom';
 
 export const TextUtils = (props) => {
     let [text, setText] = useState('');
@@ -9,7 +8,7 @@ export const TextUtils = (props) => {
         let newTxt = text.toUpperCase();
         setText(newTxt);
         props.showAlert('Text is convered to UPPERCASE');
-        props.timeOut();
+       props.timeOut();
     }
 
     const handleOnChange = (event) => {
@@ -36,9 +35,7 @@ export const TextUtils = (props) => {
     }
 
     const handleCopy = () => {
-        let txts = document.getElementById('myText');
-        txts.select();
-        navigator.clipboard.writeText(txts.value);
+        navigator.clipboard.writeText(text);
         props.showAlert('Text copied!!');
         props.timeOut();
     }
@@ -55,30 +52,29 @@ export const TextUtils = (props) => {
             <div className={'container'} style={props.mode}>
                 <div className={'form'}>
                     <div>
-                        <h1> Load your Text here to analyze it</h1>
+                        <h2> Load your text here to analyze it</h2>
                         <textarea className={'container'} value={text} id={'myText'} onChange={handleOnChange} rows={12}
                             placeholder={"Enter your text here"}></textarea>
                     </div>
 
-                    <button type="button" className="btn btn-primary my-2 mx-3" onClick={handleOnClick}>UPPERCASE
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 mx-3" onClick={handleOnClick}>UPPERCASE
                     </button>
-                    <button type="button" className="btn btn-primary my-2 " onClick={firstCharUpper}> Capitalization
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 " onClick={firstCharUpper}> Capitalization
                     </button>
-                    <button type="button" className="btn btn-primary my-2 mx-3" onClick={handleOnClear}> Clear</button>
-                    <button type="button" className="btn btn-primary my-2 " onClick={handleCopy}> Copy</button>
-                    <button type="button" className="btn btn-primary my-2 mx-3" onClick={handleXtraSpace}> Remove Spaces
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 mx-3" onClick={handleOnClear}> Clear</button>
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 " onClick={handleCopy}> Copy</button>
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 mx-3" onClick={handleXtraSpace}> Remove Spaces
                     </button>
 
                 </div>
                 <div className={'analyzer'} style={props.mode}>
-                    <h2>Your Text Summary</h2>
-                    <p> Word Count: {(text === "") ? 0 : text.trim().split(" ").length} words</p>
+                    <h2>Your text summary</h2>
+                    <p> Word Count: {(text === "") ? 0 : text.trim().split(/\s+/).length} words</p>
                     <p> Characters: {text.length} characters</p>
                     <h3>Preview</h3>
                     <p>{text}</p>
                 </div>
             </div>
-            <Outlet />
         </>
     );
 };
