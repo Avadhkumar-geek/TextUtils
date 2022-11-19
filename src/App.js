@@ -1,57 +1,60 @@
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { TextUtils } from "./components/TextUtils";
 import NavBar from "./components/NavBar";
 import { useState } from "react";
-import Alert from './components/Alert';
+import Alert from "./components/Alert";
 
 function App() {
     const [mode, setMode] = useState({
-        color: 'black',
-        backgroundColor: 'white',
+        color: "black",
+        backgroundColor: "white",
     });
 
     const ToggleMode = () => {
         if (mode.color === "black") {
             setMode({
-                color: 'white',
-                backgroundColor: 'black',
+                color: "white",
+                backgroundColor: "black",
             });
-            showAlert('Dark mode enabled!!');
+            showAlert("Dark mode enabled!!");
             timeOut();
-            document.body.style.backgroundColor = 'black';
+            document.body.style.backgroundColor = "black";
         } else {
             setMode({
-                color: 'black',
-                backgroundColor: 'white',
+                color: "black",
+                backgroundColor: "white",
             });
-            showAlert('Light mode enabled!!');
+            showAlert("Light mode enabled!!");
             timeOut();
-            document.body.style.backgroundColor = 'white';
+            document.body.style.backgroundColor = "white";
         }
-    }
+    };
 
     const [alert, setAlert] = useState(null);
-    const showAlert = msg => {
+    const showAlert = (msg) => {
         setAlert({
             message: msg,
-        })
-    }
+        });
+    };
 
     const timeOut = () => {
         setTimeout(() => {
             setAlert(null);
         }, 1500);
-    }
+    };
 
     return (
         <>
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <NavBar mode={mode} toggleMode={ToggleMode} />
 
-                    <Alert alert={alert} />
+                <Alert alert={alert} />
                 <Routes>
-                    <Route path='/' element={<TextUtils mode={mode} showAlert={showAlert} timeOut={timeOut} />} />
+                    <Route
+                        path="/"
+                        element={<TextUtils mode={mode} showAlert={showAlert} timeOut={timeOut} />}
+                    />
                 </Routes>
             </BrowserRouter>
         </>
