@@ -4,20 +4,28 @@ import { useState } from "react";
 export const TextUtils = (props) => {
     let [text, setText] = useState('');
 
-    const handleOnClick = () => {
+    const toUpperCase = () => {
         let newTxt = text.toUpperCase();
         setText(newTxt);
         props.showAlert('Text is convered to UPPERCASE');
        props.timeOut();
     }
 
+    const toLowerCase = () => {
+        let newTxt = text.toLowerCase();
+        setText(newTxt);
+        props.showAlert('Text is convered to UPPERCASE');
+        props.timeOut();
+    }
+
     const handleOnChange = (event) => {
         setText(event.target.value);
     }
 
-    const firstCharUpper = () => {
+    const capitalization = () => {
         let finalTxt = "";
         text = text.trim();
+        text = text.toLowerCase();
         let newTxt = text.split(" ");
         for (let i = 0; i < newTxt.length; i++) {
             let n = newTxt[i].trim().charAt(0).toUpperCase() + newTxt[i].slice(1);
@@ -57,14 +65,16 @@ export const TextUtils = (props) => {
                             placeholder={"Enter your text here"}></textarea>
                     </div>
 
-                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 mx-3" onClick={handleOnClick}>UPPERCASE
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 mx-3" onClick={toUpperCase}>UPPERCASE
                     </button>
-                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 " onClick={firstCharUpper}> Capitalization
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2" onClick={toLowerCase}>lowercase
                     </button>
-                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 mx-3" onClick={handleOnClear}> Clear</button>
-                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 " onClick={handleCopy}> Copy</button>
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2 mx-3" onClick={capitalization}> Capitalization
+                    </button>
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2" onClick={handleCopy}> Copy</button>
                     <button type="button" disabled={(text === '')} className="btn btn-primary my-2 mx-3" onClick={handleXtraSpace}> Remove Spaces
                     </button>
+                    <button type="button" disabled={(text === '')} className="btn btn-primary my-2" onClick={handleOnClear}> Clear</button>
 
                 </div>
                 <div className={'analyzer'} style={props.mode}>
